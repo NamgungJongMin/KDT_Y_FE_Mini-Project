@@ -1,6 +1,7 @@
 # STAYINN 스테이인
 - 🗓 기간: 2023.11.20 ~ 2023.12.01
 - ❓ 주제: Next.js를 활용한 숙박 예약 서비스
+- 🎉 [배포 링크](https://www.stayinn.site/)
 
 ![image](https://github.com/NamgungJongMin/KDT_Y_FE_Mini-Project/assets/100336573/fc400c15-323f-4a9d-8ee3-03e3b5ea9ff8)
 
