@@ -770,6 +770,59 @@ const RootLayout = ({ children }: AppLayout) => (
 
 <details>
 <summary>박성후</summary>
+
+- 라이브러리 유사 CSS pollyfill
+    - 상황 : rsuite라는 라이브러리에서 제공하는 daterangepicker는 하나의 모달에서 두개의 달력을 제공하여 사용자로 하여금 한눈에 기간을 선택할 수 있게 합니다.
+    - 문제 : 하지만 반응형을 제공하지 않아 모바일의 경우 뷰포트를 벗어나는 문제가 발생합니다.
+    뿐만 아니라 올해 2023년 부터 해당 라이브러리의 update를 중지하면서 contribution도 할 수 없는 상황이었습니다.
+    - 해결 : 그래서 css module을 사용해서 class로 직접 반응형을 적용했습니다.
+    이미 적용된 css는 important를 적용하여 덮어씌워 스타일을 적용했습니다.
+    - 코드
+```
+//styles/dateRangePicker.css
+
+.rs-picker-daterange-calendar-group {
+  height: 100% !important;
+}
+@media screen and (max-width: 768px) {
+  .rs-picker-daterange-menu {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .rs-picker-daterange-panel {
+    text-align: center;
+    height: 100%;
+  }
+  .rs-stack-item {
+    width: fit-content;
+  }
+  .rs-picker-daterange-content {
+    width: 100%;
+  }
+  .rs-picker-daterange-header {
+    width: 100%;
+  }
+  .rs-calendar-header-title {
+    font-weight: bold;
+  }
+
+  .rs-picker-daterange-calendar-group {
+    height: 578px;
+    display: flex;
+    flex-direction: column;
+    min-width: 270px !important;
+  }
+  .rs-clendar,
+  .rs-picker-menu {
+    margin: 0;
+  }
+}
+```
+
+![라이브러리csspolyfill](https://github.com/HOOOO98/STAYINN/assets/120024673/db52be01-9da1-4093-ba76-f9d6905abedf)
+  
 </details>
 
 <details>
