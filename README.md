@@ -644,13 +644,10 @@ next.js 프레임워크를 프로젝트에 처음으로 사용하면서 기존�
 
 ### 1. 유저 정보와 관련된 기능 추가 (비밀번호 변경 / 회원 탈퇴)
 마이페이지에 비밀번호 변경과 회원 탈퇴 요청을 하는 버튼들을 추가하였다. 해당 버튼들을 누르면 요청 여부를 다시 한번 확인하는 모달이 뜨게 되고 필수 input 값을 채우고 validation이 충족되면 확인 버튼이 활성화되어 요청들을 보낼 수 있게 된다.
-![image](https://github.com/NamgungJongMin/STAYINN/assets/100336573/62f162e5-6162-4575-ad9f-72eb4ae2af15)
-![image](https://github.com/NamgungJongMin/STAYINN/assets/100336573/145d739b-875a-4c17-92fd-7f8081f0dc2b)
-![image](https://github.com/NamgungJongMin/STAYINN/assets/100336573/208bc6b8-cbc7-47d6-9012-df8b0502f43f)
 
-|         객실 예약 유효성 검사                                 |                                                               |                                                               |
+|         마이페이지 버튼 추가                                |                             비밀번호 변경 모달                                  |                      회원 탈퇴 모달                                         |
 | :-----------------------------------------------------------: | :-----------------------------------------------------------: | :-----------------------------------------------------------: |
-| [버튼 추가](https://github.com/NamgungJongMin/STAYINN/assets/100336573/62f162e5-6162-4575-ad9f-72eb4ae2af15) | ![비밀번호변경모달](https://github.com/NamgungJongMin/STAYINN/assets/100336573/145d739b-875a-4c17-92fd-7f8081f0dc2b)    |  ![회원탈퇴모달](https://github.com/NamgungJongMin/STAYINN/assets/100336573/208bc6b8-cbc7-47d6-9012-df8b0502f43f)   |
+|![image](https://github.com/NamgungJongMin/STAYINN/assets/100336573/501b4b66-29f7-4124-b54c-0f64c93d96b7)|![image](https://github.com/NamgungJongMin/STAYINN/assets/100336573/89a95ab9-2f14-4020-a429-291f9cd6a95c)|![image](https://github.com/NamgungJongMin/STAYINN/assets/100336573/ef177261-4ff7-431c-9992-2def69ddde19)|
 
 
 
