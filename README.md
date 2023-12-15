@@ -771,13 +771,12 @@ const RootLayout = ({ children }: AppLayout) => (
 <details>
 <summary>박성후</summary>
 
-- 라이브러리 유사 CSS pollyfill
-    - 상황 : rsuite라는 라이브러리에서 제공하는 daterangepicker는 하나의 모달에서 두개의 달력을 제공하여 사용자로 하여금 한눈에 기간을 선택할 수 있게 합니다.
-    - 문제 : 하지만 반응형을 제공하지 않아 모바일의 경우 뷰포트를 벗어나는 문제가 발생합니다.
-    뿐만 아니라 올해 2023년 부터 해당 라이브러리의 update를 중지하면서 contribution도 할 수 없는 상황이었습니다.
-    - 해결 : 그래서 css module을 사용해서 class로 직접 반응형을 적용했습니다.
-    이미 적용된 css는 important를 적용하여 덮어씌워 스타일을 적용했습니다.
-    - 코드
+### 라이브러리 유사 CSS pollyfill
+- 상황 : rsuite라는 라이브러리에서 제공하는 daterangepicker는 하나의 모달에서 두개의 달력을 제공하여 사용자로 하여금 한눈에 기간을 선택할 수 있게 합니다.
+- 문제 : 하지만 반응형을 제공하지 않아 모바일의 경우 뷰포트를 벗어나는 문제가 발생합니다. 뿐만 아니라 올해 2023년 부터 해당 라이브러리의 update를 중지하면서 contribution도 할 수 없는 상황이었습니다.
+- 해결 : 그래서 css module을 사용해서 class로 직접 반응형을 적용했습니다. 이미 적용된 css는 important를 적용하여 덮어씌워 스타일을 적용했습니다.
+
+> 코드
 ```
 //styles/dateRangePicker.css
 
@@ -835,4 +834,20 @@ const RootLayout = ({ children }: AppLayout) => (
 
 <details>
 <summary>정진주</summary>
+  
+### 추가기능
+- 예약 내역 목록 확인 무한스크롤 적용
+- 주문 내역 목록, 주문 내역 디테일 페이지에에서도 몇 박인지 보이게 변경
+### 수정사항
+- 발견하지 못 한 any타입 제거
+- 불명확한 변수, 함수명 수정
+- 기간 최근 6개월 fix
+- 주문 내역 목록에서 CARD, CASH -> 카드, 계좌이체 한글로 보이게 변경
+- 버튼 누르면 제출되는 버그 변경
+      
+### 무한 스크롤 시연 영상
+
+
+https://github.com/jinjoo-jung/KDT_Y_FE_Mini-Project/assets/85981963/13efc0bd-c533-4605-9de8-cd0962d8bdc4
+  
 </details>
