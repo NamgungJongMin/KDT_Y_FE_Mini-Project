@@ -648,6 +648,10 @@ next.js 프레임워크를 프로젝트에 처음으로 사용하면서 기존�
 ![image](https://github.com/NamgungJongMin/STAYINN/assets/100336573/145d739b-875a-4c17-92fd-7f8081f0dc2b)
 ![image](https://github.com/NamgungJongMin/STAYINN/assets/100336573/208bc6b8-cbc7-47d6-9012-df8b0502f43f)
 
+|         객실 예약 유효성 검사                                 |                                                               |                                                               |
+| :-----------------------------------------------------------: | :-----------------------------------------------------------: | :-----------------------------------------------------------: |
+| [버튼 추가](https://github.com/NamgungJongMin/STAYINN/assets/100336573/62f162e5-6162-4575-ad9f-72eb4ae2af15) | ![비밀번호변경모달](https://github.com/NamgungJongMin/STAYINN/assets/100336573/145d739b-875a-4c17-92fd-7f8081f0dc2b)    |  ![회원탈퇴모달](https://github.com/NamgungJongMin/STAYINN/assets/100336573/208bc6b8-cbc7-47d6-9012-df8b0502f43f)   |
+
 
 
 
