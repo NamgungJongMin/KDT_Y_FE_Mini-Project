@@ -3,6 +3,12 @@
 - 🗓 기간: 2023.11.20 ~ 2023.12.01
 - ❓ 주제: Next.js를 활용한 숙박 예약 서비스
 - 🎉 [배포 링크](https://www.stayinn.site/)
+- ❗ 테스트 계정 :
+  - test1@gmail.com / asdasd123
+  - test2@gmail.com / asdasd123
+  - test3@gmail.com / asdasd123
+  - test4@gmail.com / asdasd123
+  - test5@gmail.com / asdasd123
 
 ![image](https://github.com/NamgungJongMin/KDT_Y_FE_Mini-Project/assets/100336573/fc400c15-323f-4a9d-8ee3-03e3b5ea9ff8)
 
@@ -13,7 +19,7 @@
 4. [기술 스택](#%EF%B8%8F-기술-스택)
 5. [협업 프로세스](#-협업-프로세스)
 6. [팀원별 구현 기능 및 회고](#-팀원별-구현-기능-및-회고)
-7. [리팩토링 이후 추가/변경 된 기능](#-리팩토링-이후-추가/변경-된-기능)
+7. [리팩토링 이후 추가/변경 된 기능](#-리팩토링-이후-추가변경-된-기능)
 
 ## 👭 참여 인원 및 담당 기능
 
@@ -631,10 +637,122 @@ next.js 프레임워크를 프로젝트에 처음으로 사용하면서 기존�
 
 </details>
 
-## ➕ 리팩토링 이후 추가/변경 된 기능
+## 🛠 리팩토링 이후 추가/변경 된 기능
 
 <details>
 <summary>남궁종민</summary>
+
+### 1. 유저 정보와 관련된 기능 추가 (비밀번호 변경 / 회원 탈퇴)
+마이페이지에 비밀번호 변경과 회원 탈퇴 요청을 하는 버튼들을 추가하였다. 해당 버튼들을 누르면 요청 여부를 다시 한번 확인하는 모달이 뜨게 되고 필수 input 값을 채우고 validation이 충족되면 확인 버튼이 활성화되어 요청들을 보낼 수 있게 된다.
+![image](https://github.com/NamgungJongMin/STAYINN/assets/100336573/62f162e5-6162-4575-ad9f-72eb4ae2af15)
+![image](https://github.com/NamgungJongMin/STAYINN/assets/100336573/145d739b-875a-4c17-92fd-7f8081f0dc2b)
+![image](https://github.com/NamgungJongMin/STAYINN/assets/100336573/208bc6b8-cbc7-47d6-9012-df8b0502f43f)
+
+
+
+
+### 2. 미들웨어를 작성하여 페이지 렌더링 이전 서버 측에서 로그인 여부를 판별
+로그인 여부에 따라 페이지를 보여줄지 리다이렉트 시킬지에 대한 여부를 판별하는 기존 로직은 해당 페이지에서 useEffect를 통해 로그인 여부를 판별하는 api요청을 보내고 그 여부에 따라 페이지를 리다이렉트 시키는 방식이었다. 이 방법의 문제는 인가여부를 판별하는 컴포넌트를 서버컴포넌트로 사용할 수 없다는 점과 페이지가 mount되어 렌더링 할 때 api요청이 가기 때문에 리다이렉트 전에도 잠깐 페이지가 보이며 깜빡거리는 현상이 일어난다는 점이었다. 따라서 해당 페이지의 렌더링 이전에 인증여부를 판별하기 위해 미들웨어를 작성했다.
+
+이 때 미들웨어를 작성하면서 쿠키 이슈가 생겼는데, 백엔드 단에서 Set-cookie를 해주더라도 next서버에는 쿠키라는 개념이 없기 때문에 next서버에서의 요청에서 쿠키가 담겨가지 않아 인증 요청을 할 수가 없었다. 이를 해결하기 위해 로그인시 브라우저에 Set-cookie된 토큰들을 직접 next서버에 변수로 불러와 header의 cookie로 직접 넣어서 api 요청을 해주어야 했다. 이를 위해 'next-client-cookies/server'의 CookiesProvider를 RootLayout에 감싸주어 서버 컴포넌트와 클라이언트 컴포넌트에서 쿠키들을 공유할 수 있게하였다. 이후엔 Set-cookie한 토큰들의 값을 로그인시 읽어와 CookiesProvider에 따로 set 해주어 미들웨어에서 토큰들을 읽을 수 있게 하였고, 마찬가지로 로그아웃 시에는 따로 CookiesProvider의 토큰 값들을 remove 해주는 로직을 추가하였다.
+
+> // src/middleware.ts
+```ts
+export async function needAuth(req: NextRequest) {
+  const cookies = getCookies();
+  const url = req.nextUrl.clone();
+  url.pathname = '/auth/signin';
+
+  try {
+    const response = await authRequest.getUser(cookies?.get('accessToken'));
+
+    if (response.status === 'SUCCESS') {
+      return NextResponse.next();
+    }
+  } catch (error) {
+    console.log('err: ', error);
+    return NextResponse.redirect(url);
+  }
+}
+
+export async function alreadyAuth(req: NextRequest) {
+  const cookies = getCookies();
+  const url = req.nextUrl.clone();
+  url.pathname = '/';
+
+  try {
+    const response = await authRequest.getUser(cookies?.get('accessToken'));
+
+    if (response.status === 'SUCCESS') {
+      return NextResponse.redirect(url);
+    }
+  } catch (error) {
+    console.log('err: ', error);
+    return NextResponse.next();
+  }
+}
+
+export function middleware(request: NextRequest) {
+  // <user signed> redirect to '/' when access auth pages
+  if (request.nextUrl.pathname.startsWith('/auth/signin')) {
+    console.log('call middleware - /auth/signin');
+
+    return alreadyAuth(request);
+  }
+  if (request.nextUrl.pathname.startsWith('/auth/signup')) {
+    console.log('call middleware - /auth/signup');
+
+    return alreadyAuth(request);
+  }
+
+  // <user not signed> redirect to '/auth/signin' when access pages required authentication
+  if (request.nextUrl.pathname.startsWith('/mypage')) {
+    console.log('call middleware - /mypage');
+
+    return needAuth(request);
+  }
+
+  if (request.nextUrl.pathname.startsWith('/cart')) {
+    console.log('call middleware - /cart');
+
+    return needAuth(request);
+  }
+
+  if (request.nextUrl.pathname.startsWith('/reservation')) {
+    console.log('call middleware - /reservation');
+
+    return needAuth(request);
+  }
+
+  if (request.nextUrl.pathname.startsWith('/reservationConfirm')) {
+    console.log('call middleware - /reservationConfirm');
+
+    return needAuth(request);
+  }
+}
+
+export const config = {
+  matcher: [
+    '/',
+    '/mypage',
+    '/cart',
+    '/auth/:path*',
+    '/reservation/:path*',
+    '/reservationConfirm/:path*',
+  ],
+};
+```
+
+> // src/app/layout.tsx
+```ts
+const RootLayout = ({ children }: AppLayout) => (
+  <CookiesProvider>
+    <html lang='ko' className='bg-background'>
+      <body className='container mx-auto mb-24 max-w-3xl'>{children}</body>
+    </html>
+  </CookiesProvider>
+);
+```
 </details>
 
 <details>
