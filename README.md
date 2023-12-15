@@ -2,7 +2,7 @@
 
 - 🗓 기간: 2023.11.20 ~ 2023.12.01
 - ❓ 주제: Next.js를 활용한 숙박 예약 서비스
-- 🎉 [배포 링크](https://www.stayinn.site/)
+- 🎉 배포링크 : [https://www.stayinn.site/](https://www.stayinn.site/)
 - ❗ 테스트 계정 :
   - test1@gmail.com / asdasd123
   - test2@gmail.com / asdasd123
