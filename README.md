@@ -6,6 +6,10 @@
 
 ![image](https://github.com/NamgungJongMin/KDT_Y_FE_Mini-Project/assets/100336573/fc400c15-323f-4a9d-8ee3-03e3b5ea9ff8)
 
+## 📗 목차
+1. [참여 인원 및 담당 기능](#참여-인원-및-담당-기능) 
+2. [기획 및 디자인](#기획-및-디자인) 
+
 ## 👭 참여 인원 및 담당 기능
 
 ### FE 팀
